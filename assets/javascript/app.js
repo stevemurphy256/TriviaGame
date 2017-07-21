@@ -42,29 +42,71 @@ var questions = [{
 	 "option3": "Arthur",
 	 "option4": "The Black Knight",
 	 "answer": "4"
+}, {
+	 "question": "How many times per second must a swallow flap it's wings to maintain airspeed velocity?",
+	 "option1": "42",
+	 "option2": "27",
+	 "option3": "100",
+	 "option4": "64",
+	 "answer": "1"
+
 },
+]
 
-
-}],
-
-// declare variables
+// declare variables //
 
 var currentQuestion = 0;
 var score = 0;
 var totalQuestions = questions.length;
 
-var container = document.getElementbyId("quizContainer");
-var questionElement = document.getElementbyId("question");
-var opt1 = document.getElementbyId("opt1");
-var opt2 = document.getElementbyId("opt2");
-var opt3 = document.getElementbyId("opt3");
-var opt4 = document.getElementbyId("opt4");
+var container = document.getElementById("quizContainer");
+var questionElement = document.getElementById("question");
+var opt1 = document.getElementById("opt1");
+var opt2 = document.getElementById("opt2");
+var opt3 = document.getElementById("opt3");
+var opt4 = document.getElementById("opt4");
 
-var nextButton = document.getElementbyId("nextButton");
-var resultCont = document.getElementbyId("result");
+var nextButton = document.getElementById("nextButton");
+var resultCont = document.getElementById("result");
 
 
 
+function loadQuestion () {
+	var q = questions[questions];
+	questionElement.textContent (question + 1) + ". " + q.question;
+	opt1.textContent = q.option1;
+	opt2.textContent = q.option2;
+	opt3.textContent = q.option3;
+	opt4.textContent = q.option4;
+	
+};
+
+function loadNextQuestion () {
+	var selectedOption = document.querySelector("input[type=radio]:checked");
+	if(!selectedOption){
+		alert("Please select your answer!");
+		return;
+	}
+	var answer = selectedOption.value;
+	if(questions[currentQuestion].answer == answer){
+		score += 1;
+	}
+	selectedOption.checked = false;
+	currentQuestion ++; 
+	if(currentQuestion == totalQuestions - 1){
+		nextButton.textContent = "Finish";
+	}
+	if(currentQuestion == totalQuestions) {
+		container.style.display = "none";
+		resultCont.style.display = "";
+		resultCont.textContent = "Your Score: " + score;
+		return;
+	}
+	loadQuestion(currentQuestion);
+}
+
+
+loadQuestion(currentQuestion);
 
 
 
